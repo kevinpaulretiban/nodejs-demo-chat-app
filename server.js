@@ -22,6 +22,13 @@ app.get('/messages', (req, res) => {
     })
 })
 
+app.get('/messages/:user', (req, res) => {
+    var user = req.params.user
+    Message.find({name: user}, (err, messages) => {
+        res.send(messages)
+    })
+})
+
 app.post('/messages', async (req, res) => {
 
     try {
@@ -42,6 +49,8 @@ app.post('/messages', async (req, res) => {
     } catch (error) {
         res.sendStatus(500)
         return console.error(error)
+    } finally {
+        console.log('message post called')
     }
 })
 
